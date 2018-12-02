@@ -7,6 +7,7 @@
             
         # Set Variables from RSS
         $description = $xml->channel->item[$i]->description;
+        
 
         # HTML Format
         $html .= "
