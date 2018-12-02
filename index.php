@@ -50,9 +50,13 @@
                     <h3>Preview</h3>
                     <div id="rssOutput">feed data</div>
                 </aside>
-
             </div> <!-- #main -->
        </div> <!-- #main-container -->
+       
+       <form>
+<button value="Yahoo" onmouseover="showRSS(this.value)">Hover Me</button>
+
+</form>
         
      <section>
         <?php
@@ -69,15 +73,26 @@
         $updated = $xml->channel->item[$i]->pubDate;
         $description = $xml->channel->item[$i]->description;
 
-        
+
+            
+        // --------------------------------
         # Date & Time Converter
         $date = $updated;
         $changedDate = date('m/d/Y h:i a', strtotime($date));
-
-     
-        # HTML Format
-        $html .= '<div value="Yahoo" onmouseover="showRSS(this.value)" >'.$_SESSION['test'].'TESTING</div>';
+        
+        # XML Format
+        $html .= "
+        
+        <div>
+        <hr>
+            <h6>$updated</h6>
+            <h4><a href='$link'>$title</a></h4>
+        </div>
+        
+        ";
+    
         }
+
 
         echo $html;
         ?>
