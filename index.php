@@ -25,7 +25,7 @@
 
         <div class="header-container">
             <header class="wrapper clearfix">
-                <h1 class="title"></h1>
+                <h1 class="title">Yahoo RSS</h1>
                 <nav>
                 </nav>
             </header>
@@ -48,7 +48,7 @@
             <!-- Display Content -->
                 <aside>
                     <h3>Preview</h3>
-                    <div id="rssOutput">feed data</div>
+                    <div id="rssOutput">Feed data goes here: Mumblecore pop-up tousled marfa, hella humblebrag retro typewriter fam bitters gochujang viral deep v 8-bit.  </div>
                 </aside>
             </div> <!-- #main -->
        </div> <!-- #main-container -->
@@ -58,7 +58,7 @@
 
 </form>
         
-     <section>
+     <section name='kentest' id='20181128015301AAhbLeJ'>
         <?php
         $html = "";
         $url = "https://answers.yahoo.com/rss/allq?filter=intl&tab=popular";
@@ -73,6 +73,9 @@
         $updated = $xml->channel->item[$i]->pubDate;
         $description = $xml->channel->item[$i]->description;
 
+        # Variable for ID
+        $id = $xml->channel->item[$i]->guid;
+        $id = str_replace("https://answers.yahoo.com/question/index?qid=","",$id);
 
             
         // --------------------------------
@@ -85,13 +88,15 @@
         
         <div>
         <hr>
-            <h6>$updated</h6>
+            <h6>$changedDate</h6>
             <h4><a href='$link'>$title</a></h4>
+            <h6>UID: $id</h6>
         </div>
         
         ";
     
         }
+
 
 
         echo $html;
