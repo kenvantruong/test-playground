@@ -1,5 +1,5 @@
 <?php
-
+// <!-- # getrss.php --> 
         $html = "";
         $url = "https://answers.yahoo.com/rss/allq?filter=intl&tab=popular";
         $xml = simplexml_load_file($url);
