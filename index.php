@@ -25,7 +25,7 @@
 
         <div class="header-container">
             <header class="wrapper clearfix">
-                <h1 class="title">Yahoo RSS</h1>
+                <h1 class="title"></h1>
                 <nav>
                 </nav>
             </header>
@@ -35,8 +35,8 @@
             <div class="main wrapper clearfix">
 
                 <article>
-                    <header>
-                        
+                <header>
+                       
                     </header>
 
                     <section>
@@ -48,22 +48,21 @@
             <!-- Display Content -->
                 <aside>
                     <h3>Preview</h3>
-                    <div id="rssOutput">Feed data goes here: Mumblecore pop-up tousled marfa, hella humblebrag retro typewriter fam bitters gochujang viral deep v 8-bit.  </div>
+                    <div id="rssOutput">Feed data goes here</div>
                 </aside>
             </div> <!-- #main -->
        </div> <!-- #main-container -->
        
        <form>
-<button value="Yahoo" onmouseover="showRSS(this.value)">Hover Me</button>
 
 </form>
         
-     <section name='kentest' id='20181128015301AAhbLeJ'>
+<section style='display: flex; flex-direction: row;' >
         <?php
         $html = "";
         $url = "https://answers.yahoo.com/rss/allq?filter=intl&tab=popular";
         $xml = simplexml_load_file($url);
-        for($i = 0; $i < 3; $i++){
+        for($i = 0; $i < 5; $i++){
             
         # Set Variables from RSS
         $title = $xml->channel->item[$i]->title;
@@ -73,30 +72,34 @@
         $updated = $xml->channel->item[$i]->pubDate;
         $description = $xml->channel->item[$i]->description;
 
-        # Variable for ID
+
+        # Variable for UID
         $id = $xml->channel->item[$i]->guid;
         $id = str_replace("https://answers.yahoo.com/question/index?qid=","",$id);
 
             
         // --------------------------------
-        # Date & Time Converter
+        # Date & Time Converter -> (Month/Day/Year AM/PM)
         $date = $updated;
         $changedDate = date('m/d/Y h:i a', strtotime($date));
         
-        # XML Format
+        # Random seed
+        // $seed = rand(111111,999999);
+
+        # XML Section
         $html .= "
-        
-        <div>
-        <hr>
-            <h6>$changedDate</h6>
-            <h4><a href='$link'>$title</a></h4>
-            <h6>UID: $id</h6>
-        </div>
-        
+        <a href='$link' target='_blank' onclick='changeColor(\"$id\");'>
+            <div id='colorChange' onmouseover='showPreview(\"$id\");' style='border: 1px solid silver;padding: 5px;cursor: pointer; max-width: 251px; padding: 5px; margin: 5px; text-align: center; box-shadow: 7px 11px 5px 0px rgba(125,120,125,1); ' >
+                
+                    <h6>$changedDate</h6>
+                    <h4>$title</h4>
+                    <span id='$id' style='display: none; '>$description</span>
+                
+            </div>
+            </a>
         ";
     
         }
-
 
 
         echo $html;
@@ -104,34 +107,21 @@
      </section>
 
 
-     <!-- # JAVASCRIPT -->
+     <!------- # JAVASCRIPT ------->
      <script>
-    function showRSS(str) {
-
-    if (str.length==0) { 
-        document.getElementById("rssOutput").innerHTML="";
-        return;
-    }
-    if (window.XMLHttpRequest) {
-        xmlhttp=new XMLHttpRequest();
-    } else { 
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
-        xmlhttp.onreadystatechange=function() {
-    if (this.readyState==4 && this.status==200) {
-      document.getElementById("rssOutput").innerHTML=this.responseText;
-    }
+    function showPreview(id) {
+        document.getElementById("rssOutput").innerHTML = document.getElementById(id).innerHTML;
     }
 
-    xmlhttp.open("GET","getrss.php?q="+str,true);
-    xmlhttp.send();
-}
-</script>
+    function changeColor(id) {
+        document.getElementById(id).parentNode.style.backgroundColor = "lightGrey";
+    }
+    </script>
 
 
 
 
-<!------------------ FOOTER ------------------>
+// <!------------------ FOOTER ------------------>
         <div class="footer-container">
             <footer class="wrapper">
                 <h3></h3>
